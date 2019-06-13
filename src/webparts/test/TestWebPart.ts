@@ -468,6 +468,7 @@ export default class TestWebPart extends BaseClientSideWebPart<ITestWebPartProps
                   fields: [
                     { id: 'NewsTitle', title: 'News Title', required: true, type: CustomListFieldType.string },
                     { id: 'SubTitle', title: 'Sub title', required: true, type: CustomListFieldType.string },
+                    { id: 'Content', title: 'Content', required: true, type: CustomListFieldType.richtext },
                     { id: 'Link', title: 'Link', required: false, type: CustomListFieldType.string, hidden: true },
                     { id: 'Order', title: 'Order', required: true, type: CustomListFieldType.number },
                     { id: 'Active', title: 'Active', required: false, type: CustomListFieldType.boolean },

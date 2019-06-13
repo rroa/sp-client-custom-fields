@@ -8,6 +8,7 @@
 import * as React from 'react';
 import { IPropertyFieldRichTextBoxPropsInternal } from './PropertyFieldRichTextBox';
 import { Label } from 'office-ui-fabric-react/lib/Label';
+import { SPComponentLoader } from '@microsoft/sp-loader';
 
 /**
  * @interface
@@ -16,6 +17,7 @@ import { Label } from 'office-ui-fabric-react/lib/Label';
  */
 export interface IPropertyFieldRichTextBoxHostProps extends IPropertyFieldRichTextBoxPropsInternal {
   keyCopy: string;
+  cmList?: boolean;
 }
 
 
@@ -27,7 +29,6 @@ export interface IPropertyFieldRichTextBoxHostState {
  * Renders the controls for PropertyFieldRichTextBox component
  */
 export default class PropertyFieldRichTextBoxHost extends React.Component<IPropertyFieldRichTextBoxHostProps, IPropertyFieldRichTextBoxHostState> {
-
   /**
    * @function
    * Constructor
@@ -38,12 +39,35 @@ export default class PropertyFieldRichTextBoxHost extends React.Component<IPrope
     //Bind the current object to the external called onSelectDate method
   }
 
-
   /**
    * @function
    * Renders the controls
    */
   public render(): JSX.Element {
+    if(this.props.cmList) {
+      var fMode = 'basic';
+      var ckEditorCdn = '//cdn.ckeditor.com/4.6.2/{0}/ckeditor.js'.replace("{0}", fMode);
+      var shouldReloadCKEditor = true;
+      SPComponentLoader.loadScript(ckEditorCdn, { globalExportsName: 'CKEDITOR' }).then((CKEDITOR: any): void => {
+        if (shouldReloadCKEditor) {
+          CKEDITOR.replace(this.props.keyCopy + '-' + this.props.context.instanceId + '-editor', {
+            skin: 'moono-lisa,//cdn.ckeditor.com/4.6.2/full-all/skins/moono-lisa/'
+          });
+        }
+
+        for (var i in CKEDITOR.instances) {
+          CKEDITOR.instances[i].on('change', (elm?, val?) => {
+            CKEDITOR.instances[i].updateElement();
+            var value = ((document.getElementById(this.props.keyCopy + '-' + this.props.context.instanceId + '-editor')) as any).value;
+            var mainEl = ((document.getElementById(this.props.keyCopy)) as any);
+            if(mainEl !== null) {
+              mainEl.value = value;
+            }
+          });
+        }
+      });
+    }
+
     //Renders content
     var minHeight = 100;
     if (this.props.minHeight != null)

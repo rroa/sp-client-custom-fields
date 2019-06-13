@@ -42,6 +42,7 @@ import PropertyFieldOfficeVideoPickerHost from './PropertyFieldOfficeVideoPicker
 import GuidHelper from './GuidHelper';
 
 import * as strings from 'sp-client-custom-fields/strings';
+import PropertyFieldRichTextBoxHost from '../lib/PropertyFieldRichTextBoxHost';
 
 /**
  * @interface
@@ -387,6 +388,14 @@ export default class PropertyFieldCustomListHost extends React.Component<IProper
                                   <input id={'input-' + value.id} className={styles.customTextField} style={{marginBottom: '8px'}}/>
                                 : ''
                                 }
+                                {
+                                  value.type == CustomListFieldType.richtext ?
+                                    <div>
+                                    <input id={'input-' + value.id}  type="hidden" style={{visibility: 'hidden'}}/>
+                                    <PropertyFieldRichTextBoxHost render={null} key={'input-' + value.id} label="" properties={this.props.properties} cmList={true} keyCopy={'input-' + value.id} context={this.props.context} onDispose={null} onRender={null} onPropertyChange={this.onPropertyChange} targetProperty={'input-' + value.id}  />
+                                  </div>
+                                : ''
+                                }
                                 { value.type == CustomListFieldType.number ?
                                   <input type="number" role="spinbutton" id={'input-' + value.id} aria-valuemax="99999" aria-valuemin="-999999" aria-valuenow="0" className={styles.customTextField} style={{width: '100px', marginBottom: '8px'}} />
                                 : ''
@@ -587,6 +596,14 @@ export default class PropertyFieldCustomListHost extends React.Component<IProper
                               <td>
                                 { value.type == CustomListFieldType.string ?
                                   <input id={'input-' + value.id} className={styles.customTextField} style={{marginBottom: '8px'}} defaultValue={this.state.data[this.state.selectedIndex][value.id]} />
+                                : ''
+                                }
+                                {
+                                  value.type == CustomListFieldType.richtext ?
+                                    <div>
+                                    <input id={'input-' + value.id}  type="hidden" defaultValue={this.state.data[this.state.selectedIndex][value.id]} style={{visibility: 'hidden'}}/>
+                                    <PropertyFieldRichTextBoxHost render={null} key={'input-' + value.id} label="" properties={this.props.properties} cmList={true} keyCopy={'input-' + value.id} context={this.props.context} onDispose={null} onRender={null} onPropertyChange={this.onPropertyChange} targetProperty={'input-' + value.id}  />
+                                  </div>
                                 : ''
                                 }
                                 { value.type == CustomListFieldType.number ?

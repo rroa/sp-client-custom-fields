@@ -15,6 +15,7 @@ import {
 } from '@microsoft/sp-webpart-base';
 import PropertyFieldCustomListHost, { IPropertyFieldCustomListHostProps } from './PropertyFieldCustomListHost';
 import { IWebPartContext } from '@microsoft/sp-webpart-base';
+import { SPComponentLoader } from '@microsoft/sp-loader';
 
 export enum CustomListFieldType {
   string = 0,
@@ -36,7 +37,8 @@ export enum CustomListFieldType {
   securityGroups = 16,
   officeVideo = 17,
   stars = 18,
-  colorMini = 19
+  colorMini = 19,
+  richtext = 20
 }
 
 export interface ICustomListField {
