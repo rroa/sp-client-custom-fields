@@ -601,8 +601,8 @@ export default class PropertyFieldCustomListHost extends React.Component<IProper
                                 {
                                   value.type == CustomListFieldType.richtext ?
                                     <div>
-                                    <input id={'input-' + value.id}  type="hidden" defaultValue={this.state.data[this.state.selectedIndex][value.id]} style={{visibility: 'hidden'}}/>
-                                    <PropertyFieldRichTextBoxHost render={null} key={'input-' + value.id} label="" properties={this.props.properties} cmList={true} keyCopy={'input-' + value.id} context={this.props.context} onDispose={null} onRender={null} onPropertyChange={this.onPropertyChange} targetProperty={'input-' + value.id}  />
+                                    <input id={'input-' + value.id}  type="hidden" defaultValue={this.state.data[this.state.selectedIndex].Content} style={{visibility: 'hidden'}}/>
+                                    <PropertyFieldRichTextBoxHost initialValue={this.state.data[this.state.selectedIndex].Content} render={null} key={'input-' + value.id} label="" properties={this.props.properties} cmList={true} keyCopy={'input-' + value.id} context={this.props.context} onDispose={null} onRender={null} onPropertyChange={this.onPropertyChange} targetProperty={'input-' + value.id}  />
                                   </div>
                                 : ''
                                 }
